@@ -19,20 +19,33 @@ const App = () => {
     <ApolloProvider client={client}>
       <Query query={myQuery}>
         {({ loading, error, data }) => {
-          console.log(loading)
-          console.log(error)
-          console.log(data)
-          return <div />
+          if (loading) return 'Loading...'
+          if (error) return error.message
+
+          return data.repository.issues.edges.map(edge => (
+            <Issue
+              key={edge.node.id}
+              title={edge.node.title}
+              state={edge.node.state}
+            />
+          ))
         }}
       </Query>
     </ApolloProvider>
   )
 }
 
+const Issue = ({ title, state }) => (
+  <div>
+    {title}
+    {state}
+  </div>
+)
+
 const myQuery = gql`
   {
-    repository(owner: "amarantedaniel", name: "matthias-ta-morrendo") {
-      issues(first: 1) {
+    repository(owner: "amarantedaniel", name: "issues-tracker") {
+      issues(first: 20) {
         pageInfo {
           endCursor
         }
@@ -40,6 +53,7 @@ const myQuery = gql`
           node {
             id
             title
+            state
           }
         }
       }
