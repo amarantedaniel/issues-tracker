@@ -4,7 +4,7 @@ import { ApolloProvider } from 'react-apollo'
 import gql from 'graphql-tag'
 import { Query } from 'react-apollo'
 
-const App = () => {
+const Board = () => {
   const client = new ApolloClient({
     uri: 'https://api.github.com/graphql',
     request: async operation => {
@@ -61,4 +61,4 @@ const myQuery = gql`
   }
 `
 
-export default App
+export default Board
