@@ -1,26 +1,50 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import ApolloClient from 'apollo-boost'
+import { ApolloProvider } from 'react-apollo'
+import gql from 'graphql-tag'
+import { Query } from 'react-apollo'
 
-function App() {
+const App = () => {
+  const client = new ApolloClient({
+    uri: 'https://api.github.com/graphql',
+    request: async operation => {
+      operation.setContext({
+        headers: {
+          authorization: `bearer ${process.env.REACT_APP_GITHUB_TOKEN}`,
+        },
+      })
+    },
+  })
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <ApolloProvider client={client}>
+      <Query query={myQuery}>
+        {({ loading, error, data }) => {
+          console.log(loading)
+          console.log(error)
+          console.log(data)
+          return <div />
+        }}
+      </Query>
+    </ApolloProvider>
+  )
 }
 
-export default App;
+const myQuery = gql`
+  {
+    repository(owner: "amarantedaniel", name: "matthias-ta-morrendo") {
+      issues(first: 1) {
+        pageInfo {
+          endCursor
+        }
+        edges {
+          node {
+            id
+            title
+          }
+        }
+      }
+    }
+  }
+`
+
+export default App
