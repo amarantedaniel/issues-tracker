@@ -3,7 +3,7 @@ import { Mutation } from 'react-apollo'
 import { closeIssue, reopenIssue } from 'api/queries'
 
 const Issue = ({ issue }) => (
-  <Mutation mutation={reopenIssue}>
+  <Mutation mutation={closeIssue}>
     {mutate => (
       <div>
         <span>{issue.title}</span>

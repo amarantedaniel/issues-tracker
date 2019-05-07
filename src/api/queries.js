@@ -24,6 +24,8 @@ export const closeIssue = gql`
     closeIssue(input: { issueId: $issueId }) {
       issue {
         id
+        title
+        state
       }
     }
   }
@@ -34,6 +36,8 @@ export const reopenIssue = gql`
     reopenIssue(input: { issueId: $issueId }) {
       issue {
         id
+        title
+        state
       }
     }
   }
