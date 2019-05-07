@@ -19,4 +19,24 @@ const fetchIssues = gql`
   }
 `
 
+export const closeIssue = gql`
+  mutation CloseIssue($issueId: ID!) {
+    closeIssue(input: { issueId: $issueId }) {
+      issue {
+        id
+      }
+    }
+  }
+`
+
+export const reopenIssue = gql`
+  mutation ReopenIssue($issueId: ID!) {
+    reopenIssue(input: { issueId: $issueId }) {
+      issue {
+        id
+      }
+    }
+  }
+`
+
 export { fetchIssues }
