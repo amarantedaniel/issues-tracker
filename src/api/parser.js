@@ -1,13 +1,15 @@
-import _ from 'lodash'
+import map from 'lodash/fp/map'
+import groupBy from 'lodash/fp/groupBy'
+import flow from 'lodash/fp/flow'
 
 const parseIssues = ({ repository }) =>
-  _.chain(repository.issues.edges)
-    .map(({ node }) => ({
+  flow(
+    map(({ node }) => ({
       id: node.id,
       title: node.title,
       state: node.state,
-    }))
-    .groupBy('state')
-    .value()
+    })),
+    groupBy('state'),
+  )(repository.issues.edges)
 
 export { parseIssues }
