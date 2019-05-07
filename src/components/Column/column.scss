@@ -1,0 +1,13 @@
+@import '../../stylesheets/common/_variables';
+.column {
+  width: 300px;
+  background-color: $slate;
+
+  &__title {
+    text-align: center;
+  }
+
+  &__body {
+    border-top: 1px solid $black;
+  }
+}

@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Board from 'scenes/Board'
 import * as serviceWorker from './serviceWorker'
+import 'stylesheets/index.scss'
 
 ReactDOM.render(<Board />, document.getElementById('root'))
 

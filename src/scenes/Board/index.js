@@ -15,7 +15,7 @@ const Board = () => {
           if (error) return error.message
           const { OPEN, CLOSED } = parseIssues(data)
           return (
-            <div style={{ display: 'flex', flexDirection: 'row' }}>
+            <div className="flex flex-row">
               <Column issues={OPEN} type="OPEN" />
               <Column issues={CLOSED} type="CLOSED" />
             </div>
