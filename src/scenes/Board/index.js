@@ -15,9 +15,9 @@ const Board = () => {
           if (error) return error.message
           const { OPEN, CLOSED } = parseIssues(data)
           return (
-            <div>
-              <Column issues={OPEN} />
-              <Column issues={CLOSED} />
+            <div style={{ display: 'flex', flexDirection: 'row' }}>
+              <Column issues={OPEN} type="OPEN" />
+              <Column issues={CLOSED} type="CLOSED" />
             </div>
           )
         }}
