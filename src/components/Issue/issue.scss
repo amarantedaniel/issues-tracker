@@ -1,4 +1,7 @@
 @import '../../stylesheets/common/_variables';
 .issue {
   border: 1px solid $black;
+  &--loading {
+    background-color: red;
+  }
 }
