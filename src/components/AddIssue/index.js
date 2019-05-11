@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Mutation } from 'react-apollo'
 import Modal from 'components/Modal'
 import { createIssue } from 'api/queries'
@@ -14,21 +14,33 @@ const AddIssueModal = ({ open, onClose, data }) => (
 const AddIssue = ({ data }) => (
   <Mutation mutation={createIssue} update={addIssueToCache}>
     {createIssue => {
-      const handleSubmit = event => {
-        event.preventDefault()
+      const handleSubmit = ({ title }) => {
         const { id } = parseRepository(data)
-        createIssue({
-          variables: { repositoryId: id, title: 'I have created a new thing' },
-        })
+        createIssue({ variables: { repositoryId: id, title: title } })
       }
-      return (
-        <form className="flex flex-column" onSubmit={handleSubmit}>
-          <input type="text" />
-          <input type="submit" />
-        </form>
-      )
+      return <AddIssueForm onSubmit={handleSubmit} />
     }}
   </Mutation>
 )
+
+const AddIssueForm = ({ onSubmit }) => {
+  const [title, setTitle] = useState('')
+
+  const handleSubmit = event => {
+    event.preventDefault()
+    onSubmit({ title })
+  }
+
+  return (
+    <form className="flex flex-column" onSubmit={handleSubmit}>
+      <input
+        type="text"
+        value={title}
+        onChange={event => setTitle(event.target.value)}
+      />
+      <input type="submit" />
+    </form>
+  )
+}
 
 export default AddIssueModal
