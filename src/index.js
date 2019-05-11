@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom'
 import Home from 'scenes/Home'
 import * as serviceWorker from './serviceWorker'
 import 'stylesheets/index.scss'
-import 'sakura.css'
 
 ReactDOM.render(<Home />, document.getElementById('root'))
 
