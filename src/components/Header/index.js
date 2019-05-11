@@ -3,8 +3,9 @@ import { Mutation } from 'react-apollo'
 import { parseRepository } from 'api/parser'
 import { createIssue } from 'api/queries'
 import { addIssueToCache } from 'api/cache'
+import AddIssue from 'components/AddIssue'
 
-const Header = ({ error, loading, data }) => (
+const Header = ({ data }) => (
   <Mutation mutation={createIssue} update={addIssueToCache}>
     {createIssue => {
       const handleClick = () => {
@@ -13,7 +14,12 @@ const Header = ({ error, loading, data }) => (
           variables: { repositoryId: id, title: 'I have created a new thing' },
         })
       }
-      return <button onClick={handleClick}>Add Issue</button>
+      return (
+        <div>
+          <button onClick={handleClick}>Add Issue</button>
+          <AddIssue />
+        </div>
+      )
     }}
   </Mutation>
 )
