@@ -44,4 +44,16 @@ export const reopenIssue = gql`
   }
 `
 
+export const createIssue = gql`
+  mutation CreateIssue($repositoryId: ID!, $title: String!) {
+    createIssue(input: { repositoryId: $repositoryId, title: $title }) {
+      issue {
+        id
+        state
+        title
+      }
+    }
+  }
+`
+
 export { fetchIssues }

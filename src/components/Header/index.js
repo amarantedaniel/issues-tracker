@@ -1,13 +1,20 @@
 import React from 'react'
+import { Mutation } from 'react-apollo'
 import { parseRepository } from 'api/parser'
+import { createIssue } from 'api/queries'
 
-const Header = ({ error, loading, data }) => {
-  console.log(parseRepository(data))
-  const handleClick = () => {
-    const { id } = parseRepository(data)
-    console.log(id)
-  }
-  return <button onClick={handleClick}>Add Issue</button>
-}
+const Header = ({ error, loading, data }) => (
+  <Mutation mutation={createIssue}>
+    {(createIssue, _data) => {
+      const handleClick = () => {
+        const { id } = parseRepository(data)
+        createIssue({
+          variables: { repositoryId: id, title: 'I have created a new thing' },
+        })
+      }
+      return <button onClick={handleClick}>Add Issue</button>
+    }}
+  </Mutation>
+)
 
 export default Header
