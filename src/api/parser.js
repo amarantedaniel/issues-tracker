@@ -12,4 +12,6 @@ const parseIssues = ({ repository }) =>
     groupBy('state'),
   )(repository.issues.edges)
 
-export { parseIssues }
+const parseRepository = ({ repository }) => repository
+
+export { parseIssues, parseRepository }

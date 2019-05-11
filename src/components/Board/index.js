@@ -1,28 +1,16 @@
 import React from 'react'
-import { ApolloProvider } from 'react-apollo'
-import { Query } from 'react-apollo'
-import client from 'api/client'
-import { fetchIssues } from 'api/queries'
-import { parseIssues } from 'api/parser'
 import Column from 'components/Column'
+import { parseIssues } from 'api/parser'
 
-const Board = () => {
+const Board = ({ loading, error, data }) => {
+  if (loading) return 'Loading...'
+  if (error) return error.message
+  const { OPEN, CLOSED } = parseIssues(data)
   return (
-    <ApolloProvider client={client}>
-      <Query query={fetchIssues}>
-        {({ loading, error, data }) => {
-          if (loading) return 'Loading...'
-          if (error) return error.message
-          const { OPEN, CLOSED } = parseIssues(data)
-          return (
-            <div className="flex flex-row">
-              <Column issues={OPEN} type="OPEN" />
-              <Column issues={CLOSED} type="CLOSED" />
-            </div>
-          )
-        }}
-      </Query>
-    </ApolloProvider>
+    <div className="flex flex-row">
+      <Column issues={OPEN} type="OPEN" />
+      <Column issues={CLOSED} type="CLOSED" />
+    </div>
   )
 }
 
