@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import AddIssue from 'components/AddIssue'
+import { parseRepository } from 'api/parser'
 
 const Header = ({ data }) => {
   const [addIssueOpened, setAddIssueOpened] = useState(false)
@@ -13,7 +14,11 @@ const Header = ({ data }) => {
   return (
     <div>
       <button onClick={openAddIssue}>Add Issue</button>
-      <AddIssue onClose={closeAddIssue} open={addIssueOpened} data={data} />
+      <AddIssue
+        onClose={closeAddIssue}
+        open={addIssueOpened}
+        repository={parseRepository(data)}
+      />
     </div>
   )
 }
