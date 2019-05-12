@@ -1,25 +1,14 @@
 import { fetchIssues } from 'api/queries'
+import * as R from 'ramda'
 
 const addIssueToCache = (cache, data) => {
-  const {
-    data: {
-      createIssue: { issue },
-    },
-  } = data
+  const readLens = R.lensPath(['data', 'createIssue', 'issue'])
+  const writeLens = R.lensPath(['repository', 'issues', 'edges'])
+  const issue = R.view(readLens, data)
   const currentCache = cache.readQuery({ query: fetchIssues })
-  const newCache = {
-    ...currentCache,
-    repository: {
-      ...currentCache.repository,
-      issues: {
-        ...currentCache.repository.issues,
-        edges: [
-          ...currentCache.repository.issues.edges,
-          { node: issue, __typename: 'IssueEdge' },
-        ],
-      },
-    },
-  }
+  const appendIssue = list =>
+    R.append({ node: issue, __typename: 'IssueEdge' }, list)
+  const newCache = R.over(writeLens, appendIssue, currentCache)
   cache.writeQuery({ query: fetchIssues, data: newCache })
 }
 
