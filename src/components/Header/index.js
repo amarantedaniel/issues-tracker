@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import AddIssue from 'components/AddIssue'
-import { parseRepository } from 'api/parser'
 
-const Header = ({ data }) => {
+const Header = ({ repository }) => {
   const [addIssueOpened, setAddIssueOpened] = useState(false)
 
   const openAddIssue = () => {
@@ -17,7 +16,7 @@ const Header = ({ data }) => {
       <AddIssue
         onClose={closeAddIssue}
         open={addIssueOpened}
-        repository={parseRepository(data)}
+        repository={repository}
       />
     </div>
   )

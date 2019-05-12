@@ -1,11 +1,10 @@
 import React from 'react'
 import Column from 'components/Column'
-import { parseIssues } from 'api/parser'
 
-const Board = ({ loading, error, data }) => {
+const Board = ({ loading, error, issues }) => {
   if (loading) return 'Loading...'
   if (error) return error.message
-  const { OPEN, CLOSED } = parseIssues(data)
+  const { OPEN, CLOSED } = issues
   return (
     <div className="flex flex-row">
       <Column issues={OPEN} type="OPEN" />

@@ -5,18 +5,31 @@ import { ApolloProvider } from 'react-apollo'
 import { Query } from 'react-apollo'
 import client from 'api/client'
 import { fetchIssues } from 'api/queries'
+import { parseRepository, parseIssues } from 'api/parser'
 
-const Home = () => (
+const HomeContainer = () => (
   <ApolloProvider client={client}>
     <Query query={fetchIssues}>
       {({ loading, error, data }) => (
-        <div>
-          <Header loading={loading} error={error} data={data} />
-          <Board loading={loading} error={error} data={data} />
-        </div>
+        <Home loading={loading} error={error} data={data} />
       )}
     </Query>
   </ApolloProvider>
 )
 
-export default Home
+const Home = ({ data, loading, error }) => (
+  <div>
+    <Header
+      loading={loading}
+      error={error}
+      repository={!loading && !error && parseRepository(data)}
+    />
+    <Board
+      loading={loading}
+      error={error}
+      issues={!loading && !error && parseIssues(data)}
+    />
+  </div>
+)
+
+export default HomeContainer

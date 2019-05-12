@@ -6,14 +6,15 @@ import { addIssueToCache } from 'api/cache'
 
 const AddIssueModal = ({ open, onClose, repository }) => (
   <Modal open={open} onClose={onClose}>
-    <Mutation mutation={createIssue} update={addIssueToCache} />
-    {createIssue => (
-      <AddIssue
-        repository={repository}
-        createIssue={createIssue}
-        onSubmit={onClose}
-      />
-    )}
+    <Mutation mutation={createIssue} update={addIssueToCache}>
+      {createIssue => (
+        <AddIssue
+          repository={repository}
+          createIssue={createIssue}
+          onSubmit={onClose}
+        />
+      )}
+    </Mutation>
   </Modal>
 )
 
