@@ -9,7 +9,10 @@ import { parseRepository, parseIssues } from 'api/parser'
 
 const HomeContainer = () => (
   <ApolloProvider client={client}>
-    <Query query={fetchIssues}>
+    <Query
+      query={fetchIssues}
+      variables={{ name: 'issues-tracker', owner: 'amarantedaniel' }}
+    >
       {({ loading, error, data }) => (
         <Home loading={loading} error={error} data={data} />
       )}

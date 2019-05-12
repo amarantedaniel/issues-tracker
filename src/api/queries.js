@@ -1,8 +1,8 @@
 import gql from 'graphql-tag'
 
 const fetchIssues = gql`
-  {
-    repository(owner: "amarantedaniel", name: "issues-tracker") {
+  query GetIssues($name: String!, $owner: String!) {
+    repository(owner: $owner, name: $name) {
       id
       issues(first: 20) {
         pageInfo {
