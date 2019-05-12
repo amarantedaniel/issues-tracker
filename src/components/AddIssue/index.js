@@ -7,16 +7,17 @@ import { parseRepository } from 'api/parser'
 
 const AddIssueModal = ({ open, onClose, data }) => (
   <Modal open={open} onClose={onClose}>
-    <AddIssue data={data} />
+    <AddIssue data={data} onSubmit={onClose} />
   </Modal>
 )
 
-const AddIssue = ({ data }) => (
+const AddIssue = ({ data, onSubmit }) => (
   <Mutation mutation={createIssue} update={addIssueToCache}>
     {createIssue => {
       const handleSubmit = ({ title }) => {
         const { id } = parseRepository(data)
         createIssue({ variables: { repositoryId: id, title: title } })
+        onSubmit()
       }
       return <AddIssueForm onSubmit={handleSubmit} />
     }}
