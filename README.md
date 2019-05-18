@@ -8,8 +8,9 @@ To start the development application:
 
 Features to make this usable:
 
-* Login
-* Choose project
-* Add more swimlanes
-* Create issue
-* Update issue
+- [ ] Login
+- [ ] Choose project
+- [ ] Add more swimlanes
+- [ ] Properly deal with pagination
+- [x] Create issue
+- [ ] Update issue
